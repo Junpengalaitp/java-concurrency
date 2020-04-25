@@ -45,18 +45,40 @@ public class Main {
     private static class InventoryCounter {
         private int items = 0;
 
-        public synchronized void increment() {
-            items++;
+        private Object lock = new Object();
+
+        public void increment() {
+            synchronized (lock) {
+                items++;
+            }
         }
 
-        public synchronized void decrement() {
-            items--;
+        public void decrement() {
+            synchronized (lock) {
+                items--;
+            }
         }
 
         public int getItems() {
             return items;
         }
     }
+
+//    private static class InventoryCounter {
+//        private int items = 0;
+//
+//        public synchronized void increment() {
+//            items++;
+//        }
+//
+//        public synchronized void decrement() {
+//            items--;
+//        }
+//
+//        public int getItems() {
+//            return items;
+//        }
+//    }
 
 //    private static class InventoryCounter {
 //        private AtomicInteger items = new AtomicInteger();
