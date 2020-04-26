@@ -76,10 +76,10 @@ public class Main {
         }
 
         public void takeRoadB() {
-            synchronized (roadB) {
-                System.out.println("Road B is locked by thread " + Thread.currentThread().getName());
+            synchronized (roadA) {
+                System.out.println("Road A is locked by thread " + Thread.currentThread().getName());
 
-                synchronized (roadA) {
+                synchronized (roadB) {
                     System.out.println("Train is passing through road B");
                 }
 
