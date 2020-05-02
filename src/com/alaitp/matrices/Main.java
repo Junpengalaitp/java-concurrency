@@ -170,7 +170,7 @@ public class Main {
             System.out.println("queue size " + queue.size());
 
             matricesPair = queue.remove();
-            if (queue.size() <= MAX_CAPACITY - 1) {
+            if (queue.size() < MAX_CAPACITY) {
                 notifyAll();
             }
             return matricesPair;
