@@ -10,6 +10,7 @@ public class Main {
     public static final int N = 10;
     private static final String INPUT_FILE = "./output/matrices";
     private static final String OUTPUT_FILE = "./output/matrices_result.txt";
+    public static final int MAX_CAPACITY = 5000;
 
     public static void main(String[] args) throws IOException {
         ThreadSafeQueue threadSafeQueue = new ThreadSafeQueue();
@@ -137,12 +138,20 @@ public class Main {
         private boolean isTerminate = false;
 
         public synchronized void add(MatricesPair matricesPair) {
+            while (queue.size() == MAX_CAPACITY) {
+                try {
+                    wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
             queue.add(matricesPair);
             isEmpty = false;
             notify();
         }
 
         public synchronized MatricesPair remove() {
+            MatricesPair matricesPair;
             while (isEmpty && !isTerminate) {
                 try {
                     wait();
@@ -160,7 +169,11 @@ public class Main {
 
             System.out.println("queue size " + queue.size());
 
-            return queue.remove();
+            matricesPair = queue.remove();
+            if (queue.size() <= MAX_CAPACITY - 1) {
+                notifyAll();
+            }
+            return matricesPair;
         }
 
         public synchronized void terminate() {
