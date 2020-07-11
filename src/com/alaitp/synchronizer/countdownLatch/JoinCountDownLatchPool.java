@@ -1,4 +1,4 @@
-package com.alaitp.countdownLatch;
+package com.alaitp.synchronizer.countdownLatch;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
