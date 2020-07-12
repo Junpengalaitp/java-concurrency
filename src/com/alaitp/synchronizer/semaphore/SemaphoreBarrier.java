@@ -30,6 +30,7 @@ public class SemaphoreBarrier {
         executorService.submit(() -> {
             System.out.println(Thread.currentThread() + "B task over");
             semaphore.release();
+
         });
 
         semaphore.acquire(2);
